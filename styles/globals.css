@@ -1,4 +1,39 @@
-:root {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: Geometria;
+  font-weight: 300;
+  src: url("../fonts/geometria-cdnfonts/Geometria-Light.ttf");
+}
+
+@font-face {
+  font-family: Geometria;
+  font-weight: 400;
+  src: url("../fonts/geometria-cdnfonts/Geometria.ttf");
+}
+
+@font-face {
+  font-family: Geometria;
+  font-weight: 500;
+  src: url("../fonts/geometria-cdnfonts/Geometria-Medium.ttf");
+}
+
+@font-face {
+  font-family: Geometria;
+  font-weight: 700;
+  src: url("../fonts/geometria-cdnfonts/Geometria-Heavy.ttf");
+}
+
+@font-face {
+  font-family: Geometria;
+  font-weight: 900;
+  src: url("../fonts/geometria-cdnfonts/Geometria-Bold.ttf");
+}
+
+
+/* :root {
   --max-width: 1100px;
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
@@ -104,4 +139,4 @@ a {
   html {
     color-scheme: dark;
   }
-}
+} */
