@@ -7,8 +7,10 @@ import TitleBanner from '../components/TitleBanner'
 import { MovieApi } from "../api/api"
 import Image from 'next/image'
 import DrawerComponent from "../components/Drawer";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const router = useRouter()
   type Data = {
     id: number;
     vote_average: number;
@@ -72,8 +74,16 @@ export default function Home() {
               <p className='text-sm' >{nowPlaying[0]?.vote_average}</p>
               <p className='text-xs'>Sept 15, 2022</p>
               <div className='flex my-2 '>
-                <Button className=' bg-fern-500 h-10'> Watch Trailer </Button>
-                <Button className=' ml-3 h-10 text-2xl' style={{ background: `rgba(255,255,255, 0.6)` }} > + </Button>
+                <Button className=' bg-fern-500 h-10'
+                  onClick={() => {
+                    showDetails(nowPlaying[0].id)
+                  }} > Watch Trailer
+                </Button>
+                <Button className=' ml-3 h-10 ' style={{ background: `rgba(255,255,255, 0.6)` }}
+                  onClick={() => {
+                    console.log("Added To WatchList")
+                  }} > Watchist +
+                </Button>
               </div>
             </div>
           </div>
@@ -82,9 +92,17 @@ export default function Home() {
             <TitleBanner title="Trending Movies" url="/trending" showIcon />
             <div className='flex w-full flex-wrap ' >
               {trendingMovies?.slice(0, 12).map((movies) => {
-                return <Card key={movies?.id} data={movies} onClick={() => {
-                  showDetails(movies.id)
-                }} />
+                return <Card key={movies?.id} data={movies}
+                  onClick={() => {
+                    showDetails(movies.id)
+                  }}
+                  chooseSimilarMovies={() => {
+                    router.push(`/movies/similarMovies/${movies.id}`)
+                  }}
+                  watchList={() => {
+                    console.log("Added To WatchList")
+                  }}
+                />
               })}
 
             </div>

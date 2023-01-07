@@ -5,8 +5,11 @@ import React, { useState, useEffect } from "react";
 import { MovieApi } from '../api/api';
 import PageCount from '../components/PageCount';
 import DrawerComponent from '../components/Drawer';
+import { useRouter } from 'next/router';
 
 export default function TopRated() {
+    const router = useRouter()
+
     type Data = {
         id: number;
         vote_average: number;
@@ -50,9 +53,17 @@ export default function TopRated() {
                     <TitleBanner title="Top Rated Movies" url="/trending" />
                     <div className='flex w-full flex-wrap' >
                         {topRatedMovies?.map((movies) => {
-                            return <Card key={movies.id} data={movies} onClick={() => {
-                                showDetails(movies.id)
-                            }} />
+                            return <Card key={movies.id} data={movies}
+                                onClick={() => {
+                                    showDetails(movies.id)
+                                }}
+                                chooseSimilarMovies={() => {
+                                    router.push(`/movies/similarMovies/${movies.id}`)
+                                }}
+                                watchList={() => {
+                                    console.log("Added To WatchList")
+                                }}
+                            />
                         })}
                     </div>
                     <PageCount onClick={(number: any) => changePageNo(number)} pageNo={pageNo} />

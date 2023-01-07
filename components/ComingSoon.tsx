@@ -1,8 +1,22 @@
 import moment from 'moment'
 import Image from 'next/image'
 import Button from './Button'
+import DrawerComponent from './Drawer';
+import React, { useState, useEffect } from "react";
+
 
 export default function ComingSoonComponent({ data }: any) {
+
+    const [isOpen, setIsOpen] = useState(false);
+    const toggleDrawer = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const [movieId, setMovieId] = useState<number>();
+    const showDetails = (movieId: any) => {
+        toggleDrawer()
+        setMovieId(movieId)
+    }
     return (
         <>
             <div className='px-12 my-12' >
@@ -24,9 +38,14 @@ export default function ComingSoonComponent({ data }: any) {
                         </h4>
                         <h4 className='text-base font-bold' >Release Date</h4>
                         <h4 className='text-sm'>{moment(data?.release_date).format("ll")}</h4>
-                        <Button className=' bg-fern-400  text-sm mt-3 h-10' > More Details </Button>
+                        <Button className=' bg-fern-400  text-sm mt-3 h-10'
+                            onClick={() => {
+                                showDetails(data?.id)
+                            }}
+                        > More Details </Button>
                     </div>
                 </div>
+                <DrawerComponent isOpen={isOpen} onClose={toggleDrawer} movieId={movieId} />
             </div>
         </>
     )

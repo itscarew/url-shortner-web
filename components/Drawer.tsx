@@ -14,7 +14,6 @@ type Data = {
 
 };
 
-
 export default function DrawerComponent({ children, isOpen, onClose, movieId }: Partial<Data>) {
     return (
         <>

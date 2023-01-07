@@ -5,8 +5,10 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import PageCount from '../components/PageCount';
 import DrawerComponent from '../components/Drawer';
+import { useRouter } from 'next/router';
 
 export default function SearchPage() {
+    const router = useRouter()
     type Data = {
         id: number;
         vote_average: number;
@@ -59,7 +61,6 @@ export default function SearchPage() {
         setMovieId(movieId)
     }
 
-
     return (
         <>
             <div className='py-4 px-8' >
@@ -67,9 +68,17 @@ export default function SearchPage() {
                 <TitleBanner title="Search Results" />
                 <div className='flex w-full flex-wrap' >
                     {searchedMovies?.map((movies) => {
-                        return <Card key={movies?.id} data={movies} search onClick={() => {
-                            showDetails(movies.id)
-                        }} />
+                        return <Card key={movies?.id} data={movies} search
+                            onClick={() => {
+                                showDetails(movies.id)
+                            }}
+                            chooseSimilarMovies={() => {
+                                router.push(`/movies/similarMovies/${movies.id}`)
+                            }}
+                            watchList={() => {
+                                console.log("Added To WatchList")
+                            }}
+                        />
                     })}
                 </div>
                 <PageCount onClick={(number: any) => changePageNo(number)} pageNo={pageNo} />
