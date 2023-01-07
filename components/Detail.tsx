@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import Drawer from "react-modern-drawer";
+import React, { useState, useEffect, useContext } from "react";
 import "react-modern-drawer/dist/index.css";
 import Image from 'next/image'
 import moment from "moment";
 import Button from "./Button";
 import { MovieApi } from "../api/api";
+import AppContext from "./AppContext";
 
 export default function DetailsComponent({ movieId }: any) {
+    const { watchListState }: any = useContext(AppContext)
     type Data = {
         id: number;
         vote_average: number;
@@ -41,10 +42,18 @@ export default function DetailsComponent({ movieId }: any) {
         return video.type === "Trailer"
     })
 
+
+    const [watchProviders, setWatchProviders] = useState<any>([]);
+    const getWatchProviders = async () => {
+        const res: any = await MovieApi.get(`${movieId}/watch/providers?api_key=0bae2b774ae975ea338f73141added57&language=en-US&page=1&dataSource="JustWatch`);
+        setWatchProviders(res?.data?.results)
+    };
+
     useEffect(() => {
         if (movieId) {
             getMovieDetail()
             getWatch()
+            getWatchProviders()
         }
     }, [movieId])
 
@@ -107,6 +116,10 @@ export default function DetailsComponent({ movieId }: any) {
                     <h4 className='text-base my-2'>
                         <span className="font-black" >Budget :</span> &#x24;{numberWithCommas(detail?.budget)}
                     </h4>
+
+                    <h4 className='text-base my-2 cursor-pointer mb-6'>
+                        <a target={"/_blank"} href={watchProviders?.US?.link} className="text-green-500 font-black underline" >JustWatch </a>
+                    </h4>
                     <h4 className={`w-full h-96`}>
                         <iframe allowFullScreen
                             allow="accelerometer; fullscreen; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -118,7 +131,15 @@ export default function DetailsComponent({ movieId }: any) {
                         </iframe>
                     </h4>
 
-                    <Button className=' bg-fern-400 text-sm mt-3 h-10 w-full' > Add to watchlist </Button>
+                    <Button className=' bg-fern-400 text-sm mt-3 h-10 w-full' onClick={() =>
+                        watchListState.addWatchList(
+                            {
+                                id: detail?.id,
+                                poster_path: detail?.poster_path,
+                                title: detail?.title,
+                                release_date: moment(detail?.release_date).format("ll")
+                            }
+                        )} > Add to watchlist </Button>
                 </div>
             </div>
         </>

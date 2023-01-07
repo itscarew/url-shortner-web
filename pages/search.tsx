@@ -72,12 +72,6 @@ export default function SearchPage() {
                             onClick={() => {
                                 showDetails(movies.id)
                             }}
-                            chooseSimilarMovies={() => {
-                                router.push(`/movies/similarMovies/${movies.id}`)
-                            }}
-                            watchList={() => {
-                                console.log("Added To WatchList")
-                            }}
                         />
                     })}
                 </div>

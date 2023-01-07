@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Button from '../components/Button'
 import Card from '../components/Card'
 import ComingSoonComponent from '../components/ComingSoon'
@@ -8,9 +8,11 @@ import { MovieApi } from "../api/api"
 import Image from 'next/image'
 import DrawerComponent from "../components/Drawer";
 import { useRouter } from "next/router";
+import AppContext from "../components/AppContext";
+import moment from "moment";
 
 export default function Home() {
-  const router = useRouter()
+  const { watchListState }: any = useContext(AppContext)
   type Data = {
     id: number;
     vote_average: number;
@@ -52,7 +54,7 @@ export default function Home() {
   }, [])
 
   const [movieId, setMovieId] = useState<number>();
-  const showDetails = (movieId: any) => {
+  const showDetails = (movieId: number) => {
     toggleDrawer()
     setMovieId(movieId)
   }
@@ -80,9 +82,15 @@ export default function Home() {
                   }} > Watch Trailer
                 </Button>
                 <Button className=' ml-3 h-10 ' style={{ background: `rgba(255,255,255, 0.6)` }}
-                  onClick={() => {
-                    console.log("Added To WatchList")
-                  }} > Watchist +
+                  onClick={() =>
+                    watchListState.addWatchList(
+                      {
+                        id: nowPlaying[0]?.id,
+                        poster_path: nowPlaying[0]?.poster_path,
+                        title: nowPlaying[0]?.title,
+                        release_date: moment(nowPlaying[0]?.release_date).format("ll")
+                      }
+                    )} > Watchist +
                 </Button>
               </div>
             </div>
@@ -95,12 +103,6 @@ export default function Home() {
                 return <Card key={movies?.id} data={movies}
                   onClick={() => {
                     showDetails(movies.id)
-                  }}
-                  chooseSimilarMovies={() => {
-                    router.push(`/movies/similarMovies/${movies.id}`)
-                  }}
-                  watchList={() => {
-                    console.log("Added To WatchList")
                   }}
                 />
               })}

@@ -7,11 +7,8 @@ import React, { useState, useEffect } from "react";
 import { MovieApi } from '../api/api';
 import PageCount from '../components/PageCount';
 import DrawerComponent from '../components/Drawer';
-import { useRouter } from 'next/router';
 
 export default function NewMovies() {
-    const router = useRouter()
-
     type Data = {
         id: number;
         vote_average: number;
@@ -60,12 +57,6 @@ export default function NewMovies() {
                             return <Card key={movies.id} data={movies}
                                 onClick={() => {
                                     showDetails(movies.id)
-                                }}
-                                chooseSimilarMovies={() => {
-                                    router.push(`/movies/similarMovies/${movies.id}`)
-                                }}
-                                watchList={() => {
-                                    console.log("Added To WatchList")
                                 }}
                             />
                         })}

@@ -4,9 +4,14 @@ import { FiMoreVertical } from "react-icons/fi"
 import moment from 'moment'
 import Image from 'next/image'
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment, useContext, } from 'react'
+import AppContext from './AppContext'
+import { useRouter } from 'next/router'
 
-export default function Card({ watchlist, search, data, onClick, chooseSimilarMovies, watchList }: any) {
+export default function Card({ watchlist, search, data, onClick, }: any) {
+    const { watchListState }: any = useContext(AppContext)
+    const router = useRouter()
+
     const titleLength = (text: string) => {
         if (text?.length > 24) {
             return `${text?.slice(0, 24)}....`
@@ -18,13 +23,27 @@ export default function Card({ watchlist, search, data, onClick, chooseSimilarMo
 
     const list = [
         {
-            id: 1, text: "Similar Movies",
+            id: 1,
+            text: "Similar Movies",
             action: () => {
                 window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-                chooseSimilarMovies()
+                router.push(`/movies/similarMovies/${data.id}`)
             }
         },
-        { id: 2, text: "Watchlist", action: () => watchList() }
+        {
+            id: 2,
+            text: "Watchlist",
+            action: () => {
+                watchListState.addWatchList(
+                    {
+                        id: data.id,
+                        poster_path: data.poster_path,
+                        title: data.title,
+                        release_date: moment(data.release_date).format("ll")
+                    }
+                )
+            }
+        }
     ]
 
     return (
@@ -81,7 +100,6 @@ export default function Card({ watchlist, search, data, onClick, chooseSimilarMo
                                     </Menu>
                                 </div>
                             </div>
-
                         }
 
                     </div>
@@ -94,7 +112,17 @@ export default function Card({ watchlist, search, data, onClick, chooseSimilarMo
                             </div>
                             <h4 className='text-sm'> {moment(data?.release_date).format("ll")} </h4>
                         </div>
-                        <Button className={`${watchlist ? "bg-red-500" : "bg-fern-500"} h-10 my-2`} onClick={onClick} > {watchlist ? <BsTrash /> : "More Details"}  </Button>
+                        {watchlist &&
+                            <div
+                                className={`text-fern-500 font-bold underline cursor-pointer`}
+                                onClick={onClick} >
+                                Check More Details
+                            </div>}
+                        <Button
+                            className={`${watchlist ? "bg-red-500" : "bg-fern-500"} h-10 my-2`}
+                            onClick={watchlist ? () => watchListState.removeWatchList(data?.id) : onClick} >
+                            {watchlist ? <BsTrash /> : "More Details"}
+                        </Button>
                     </div>
                 </div>
             </div>
@@ -102,8 +130,3 @@ export default function Card({ watchlist, search, data, onClick, chooseSimilarMo
     )
 }
 
-// {!watchlist &&
-//     <div className='absolute top-2 right-2' >
-//         {/* <Button className='h-10 ml-3 text-2xl' style={{ background: `rgba(255,255,255, 0.6)` }}> + </Button> */}
-
-//     </div>}
