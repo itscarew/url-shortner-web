@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { AiOutlineHome } from "react-icons/ai";
@@ -8,8 +8,10 @@ import { BiTrendingUp } from "react-icons/bi"
 import { MdOutlineLocalMovies, MdOutlineDarkMode } from "react-icons/md"
 import { BsLightbulb } from "react-icons/bs"
 import { Switch } from "@headlessui/react";
+import AppContext from "./AppContext";
 
 export default function NavBar() {
+    const { watchListState }: any = useContext(AppContext)
     const [enabled, setEnabled] = useState(false);
     const router = useRouter();
 
@@ -31,7 +33,8 @@ export default function NavBar() {
                         return (
                             <div key={index}>
                                 <Link className={`flex items-center py-2 my-2 border-r-4 ${router.pathname == route.href ? "border-fern-600 font-black text-fern-500" : "border-white"} `} href={route.href}>
-                                    {route.icon} <div className='ml-4'>{route.name} </div>
+                                    {route.icon} <div className='ml-4'>{route.name}  </div>
+                                    {(route.name === "Watchlist" && watchListState.watchList.length > 0) && <div className="bg-fern-700 rounded-full h-7 w-7 text-gray-100 ml-2 flex items-center justify-center" > {watchListState.watchList.length}</div>}
                                 </Link>
                             </div>)
                     })}
@@ -60,9 +63,7 @@ export default function NavBar() {
                         <MdOutlineDarkMode size="1.3rem" />
                     </div>
                 </div>
-
             </div>
-
         </nav>
     )
 }

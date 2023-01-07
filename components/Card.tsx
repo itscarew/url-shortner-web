@@ -42,6 +42,7 @@ export default function Card({ watchlist, search, data, onClick, }: any) {
                         release_date: moment(data.release_date).format("ll")
                     }
                 )
+                alert("dkdok")
             }
         }
     ]
