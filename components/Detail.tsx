@@ -7,7 +7,8 @@ import { MovieApi } from "../api/api";
 import AppContext from "./AppContext";
 
 export default function DetailsComponent({ movieId }: any) {
-    const { watchListState }: any = useContext(AppContext)
+    const { watchListState, themeState }: any = useContext(AppContext)
+
     type Data = {
         id: number;
         vote_average: number;
@@ -72,7 +73,7 @@ export default function DetailsComponent({ movieId }: any) {
 
     return (
         <>
-            <div>
+            <div className={`${themeState.theme ? "bg-black text-white" : ""}`} >
                 <div className={`w-full`} style={{ height: "30rem" }} >
                     <iframe allowFullScreen
                         allow="accelerometer; fullscreen; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -85,8 +86,8 @@ export default function DetailsComponent({ movieId }: any) {
                 </div>
 
 
-                <div className=" my-6" >
-                    <div className="mx-12" >
+                <div>
+                    <div className="px-12 py-6" >
                         <h3 className='text-5xl font-black'> {detail?.title}</h3>
                         <h3 className='text-xl   my-3'> {detail?.tagline} </h3>
 
@@ -136,7 +137,7 @@ export default function DetailsComponent({ movieId }: any) {
                     </div>
 
 
-                    <div className="px-6 py-4" >
+                    <div className="px-6 py-5" >
                         <Button className=' bg-fern-400 text-sm mt-3  h-10 w-full' onClick={() =>
                             watchListState.addWatchList(
                                 {

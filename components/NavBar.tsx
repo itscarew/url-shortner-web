@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { AiOutlineHome } from "react-icons/ai";
@@ -11,8 +11,7 @@ import { Switch } from "@headlessui/react";
 import AppContext from "./AppContext";
 
 export default function NavBar() {
-    const { watchListState }: any = useContext(AppContext)
-    const [enabled, setEnabled] = useState(false);
+    const { watchListState, themeState }: any = useContext(AppContext)
     const router = useRouter();
 
     const routes = [
@@ -48,14 +47,14 @@ export default function NavBar() {
                         <BsLightbulb size="1.3rem" />
                     </div>
                     <Switch
-                        checked={enabled}
-                        onChange={setEnabled}
-                        className={`${enabled ? "bg-fern-400" : "bg-gray-200"
+                        checked={themeState.theme}
+                        onChange={themeState.setTheme}
+                        className={`${themeState.theme ? "bg-fern-400" : "bg-gray-200"
                             } relative inline-flex items-center h-7 rounded-full w-16`}
                     >
                         <span className="sr-only">Change Theme</span>
                         <span
-                            className={`${enabled ? "translate-x-10" : "translate-x-1"
+                            className={`${themeState.theme ? "translate-x-10" : "translate-x-1"
                                 } inline-block w-5 h-5 transform bg-white rounded-full transition ease-in-out duration-200`}
                         />
                     </Switch>

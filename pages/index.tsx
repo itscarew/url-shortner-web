@@ -90,7 +90,7 @@ export default function Home() {
                         title: nowPlaying[0]?.title,
                         release_date: moment(nowPlaying[0]?.release_date).format("ll")
                       }
-                    )} > Watchist +
+                    )} > Add to Watchist +
                 </Button>
               </div>
             </div>

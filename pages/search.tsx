@@ -1,14 +1,15 @@
 import TitleBanner from '../components/TitleBanner'
 import Card from '../components/Card'
 import Search from '../components/Search'
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from 'axios';
 import PageCount from '../components/PageCount';
 import DrawerComponent from '../components/Drawer';
-import { useRouter } from 'next/router';
+import { CiSearch } from "react-icons/ci"
+import AppContext from '../components/AppContext';
 
 export default function SearchPage() {
-    const router = useRouter()
+    const { themeState }: any = useContext(AppContext)
     type Data = {
         id: number;
         vote_average: number;
@@ -63,17 +64,23 @@ export default function SearchPage() {
 
     return (
         <>
-            <div className='py-4 px-8' >
+            <div className={`py-4 px-8 min-h-screen ${themeState.theme ? "bg-black text-white" : ""}`}>
                 <Search onChange={(e: any) => handleChange(e)} onClick={handleSearch} value={movie} />
                 <TitleBanner title="Search Results" />
                 <div className='flex w-full flex-wrap' >
-                    {searchedMovies?.map((movies) => {
-                        return <Card key={movies?.id} data={movies} search
-                            onClick={() => {
-                                showDetails(movies.id)
-                            }}
-                        />
-                    })}
+                    {searchedMovies.length < 1 ?
+                        <div className="flex w-full items-center justify-center text-fern-400" style={{ height: "68vh" }} >
+                            <CiSearch size={150} />
+                        </div> :
+                        <>
+                            {searchedMovies?.map((movies) => {
+                                return <Card key={movies?.id} data={movies} search
+                                    onClick={() => {
+                                        showDetails(movies.id)
+                                    }}
+                                />
+                            })}
+                        </>}
                 </div>
                 <PageCount onClick={(number: any) => changePageNo(number)} pageNo={pageNo} />
                 <DrawerComponent isOpen={isOpen} onClose={toggleDrawer} movieId={movieId} />

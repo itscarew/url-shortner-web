@@ -19,7 +19,7 @@ export default function Search({ onChange, onClick, value }: any) {
             <div className='flex items-center relative mb-4' >
                 <input
                     type={"text"}
-                    className="w-full border-2 rounded-full py-2 pl-10 border-gray-300 focus:outline-none  focus:border-fern-400"
+                    className="w-full border-2 rounded-full py-2 pl-10 border-gray-300 focus:outline-none  focus:border-fern-400 text-black"
                     placeholder='Search Movie...'
                     value={value || movie}
                     onChange={onChange || handleChange}

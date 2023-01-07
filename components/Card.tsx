@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import { Alert, NotifyType } from './Alert'
 
 export default function Card({ watchlist, search, data, onClick, }: any) {
-    const { watchListState }: any = useContext(AppContext)
+    const { watchListState, themeState }: any = useContext(AppContext)
     const router = useRouter()
 
     const titleLength = (text: string) => {
@@ -33,7 +33,7 @@ export default function Card({ watchlist, search, data, onClick, }: any) {
         },
         {
             id: 2,
-            text: "Watchlist",
+            text: "Add to Watchlist",
             action: () => {
                 watchListState.addWatchList(
                     {
@@ -48,7 +48,7 @@ export default function Card({ watchlist, search, data, onClick, }: any) {
     ]
 
     const removeWatchList = () => {
-        Alert({ type: NotifyType.question, title: "Do you want to remove this video from Watchlist ?" }).then((result) => {
+        Alert({ type: NotifyType.question, title: "Do you want to remove this video from Watchlist ?", theme: themeState.theme }).then((result) => {
             if (result.isConfirmed) {
                 watchListState.removeWatchList(data?.id)
             }
@@ -98,7 +98,7 @@ export default function Card({ watchlist, search, data, onClick, }: any) {
                                                                             } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                                                         onClick={list.action}
                                                                     >
-                                                                        {list.text}
+                                                                        {list.text} {list.text === "Watchlist" && "+"}
                                                                     </button>
                                                                 )}
                                                             </Menu.Item>)

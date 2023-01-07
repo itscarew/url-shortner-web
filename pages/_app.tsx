@@ -16,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
     release_date: string;
   };
   const [watchList, setWatchList] = useState<Data[]>([])
+  const [theme, setTheme] = useState(false)
 
   const addWatchList = (movie: any) => {
     const checkWatchList = watchList.find((watchList) => {
@@ -24,9 +25,9 @@ export default function App({ Component, pageProps }: AppProps) {
     if (!checkWatchList) {
       const updatedArray = [...watchList, movie]
       setWatchList(updatedArray)
-      Alert({ title: "Added to WatchList" })
+      Alert({ title: "Added to WatchList", theme: theme })
     } else {
-      Alert({ title: "Already added to WatchList", type: NotifyType.info })
+      Alert({ title: "Already added to WatchList", type: NotifyType.info, theme: theme })
     }
   }
 
@@ -38,7 +39,10 @@ export default function App({ Component, pageProps }: AppProps) {
   }
 
   return (<AppContext.Provider
-    value={{ watchListState: { watchList, addWatchList, removeWatchList } }}>
+    value={{
+      watchListState: { watchList, addWatchList, removeWatchList },
+      themeState: { theme, setTheme }
+    }}>
     <Component {...pageProps} />
   </AppContext.Provider>)
 
