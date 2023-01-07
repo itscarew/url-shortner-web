@@ -24,7 +24,7 @@ export default function NavBar() {
     ]
     return (
         <nav className='w-72 pt-14 border-r-2 border-gray-400'>
-            <div className=' text-2xl font-black flex items-center ml-14 text-fern-500'  > <RiMovie2Fill size={"2.4rem"} /> <h1 className='ml-3'> New Movie </h1></div>
+            <div className=' text-2xl font-black flex items-center ml-14 text-fern-500'  > <RiMovie2Fill size={"2.4rem"} /> <h1 className='ml-3'> MovieX </h1></div>
 
             <div className=' pt-8 ml-14'>
                 <h1 className='text-lg text-gray-400 mb-4 '>MENU </h1>

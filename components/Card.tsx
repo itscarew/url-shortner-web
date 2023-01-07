@@ -7,6 +7,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useContext, } from 'react'
 import AppContext from './AppContext'
 import { useRouter } from 'next/router'
+import { Alert, NotifyType } from './Alert'
 
 export default function Card({ watchlist, search, data, onClick, }: any) {
     const { watchListState }: any = useContext(AppContext)
@@ -42,10 +43,17 @@ export default function Card({ watchlist, search, data, onClick, }: any) {
                         release_date: moment(data.release_date).format("ll")
                     }
                 )
-                alert("dkdok")
             }
         }
     ]
+
+    const removeWatchList = () => {
+        Alert({ type: NotifyType.question, title: "Do you want to remove this video from Watchlist ?" }).then((result) => {
+            if (result.isConfirmed) {
+                watchListState.removeWatchList(data?.id)
+            }
+        })
+    }
 
     return (
         <>
@@ -121,7 +129,7 @@ export default function Card({ watchlist, search, data, onClick, }: any) {
                             </div>}
                         <Button
                             className={`${watchlist ? "bg-red-500" : "bg-fern-500"} h-10 my-2`}
-                            onClick={watchlist ? () => watchListState.removeWatchList(data?.id) : onClick} >
+                            onClick={watchlist ? () => removeWatchList() : onClick} >
                             {watchlist ? <BsTrash /> : "More Details"}
                         </Button>
                     </div>

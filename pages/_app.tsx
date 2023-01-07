@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { useState, useEffect } from "react";
 import AppContext from '../components/AppContext';
+import { Alert, NotifyType } from '../components/Alert';
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -23,8 +24,9 @@ export default function App({ Component, pageProps }: AppProps) {
     if (!checkWatchList) {
       const updatedArray = [...watchList, movie]
       setWatchList(updatedArray)
+      Alert({ title: "Added to WatchList" })
     } else {
-      console.log("Already in list bro")
+      Alert({ title: "Already added to WatchList", type: NotifyType.info })
     }
   }
 
