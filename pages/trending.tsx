@@ -32,7 +32,7 @@ export default function Trending() {
 
     const [trendingMovies, setTrendingMovies] = useState<Data[]>([]);
     const getTrendingMovies = async () => {
-        const res: any = await MovieApi.get(`popular?api_key=0bae2b774ae975ea338f73141added57&language=en-US&page=${pageNo}`);
+        const res: any = await MovieApi.get(`popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=${pageNo}`);
         setTrendingMovies(res?.data.results)
     };
 

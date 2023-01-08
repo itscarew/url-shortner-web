@@ -29,13 +29,13 @@ export default function DetailsComponent({ movieId }: any) {
 
     const [detail, setMovieDetail] = useState<Data>();
     const getMovieDetail = async () => {
-        const res: any = await MovieApi.get(`${movieId}?api_key=0bae2b774ae975ea338f73141added57&language=en-US&page=1`);
+        const res: any = await MovieApi.get(`${movieId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`);
         setMovieDetail(res?.data)
     };
 
     const [videoDetail, setVideoDetail] = useState([]);
     const getWatch = async () => {
-        const res: any = await MovieApi.get(`${movieId}/videos?api_key=0bae2b774ae975ea338f73141added57&language=en-US&page=1`);
+        const res: any = await MovieApi.get(`${movieId}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`);
         setVideoDetail(res.data.results)
     };
 
@@ -46,7 +46,7 @@ export default function DetailsComponent({ movieId }: any) {
 
     const [watchProviders, setWatchProviders] = useState<any>([]);
     const getWatchProviders = async () => {
-        const res: any = await MovieApi.get(`${movieId}/watch/providers?api_key=0bae2b774ae975ea338f73141added57&language=en-US&page=1&dataSource="JustWatch`);
+        const res: any = await MovieApi.get(`${movieId}/watch/providers?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1&dataSource="JustWatch`);
         setWatchProviders(res?.data?.results)
     };
 

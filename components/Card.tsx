@@ -86,7 +86,8 @@ export default function Card({ watchlist, search, data, onClick, }: any) {
                                             leaveFrom="transform opacity-100 scale-100"
                                             leaveTo="transform opacity-0 scale-95"
                                         >
-                                            <Menu.Items className="absolute right-0 mt-2 w-40 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                            <Menu.Items
+                                                className={`absolute right-0 mt-2 w-40 origin-top-right divide-y divide-gray-100 rounded-md  ${themeState.theme ? "bg-black" : "bg-white"} shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}>
                                                 <div className="px-1 py-1 ">
 
                                                     {list.map((list) => {
@@ -94,7 +95,7 @@ export default function Card({ watchlist, search, data, onClick, }: any) {
                                                             <Menu.Item key={list.id} >
                                                                 {({ active }) => (
                                                                     <button
-                                                                        className={`${active ? 'bg-fern-400 text-white' : 'text-gray-900'
+                                                                        className={`${active ? 'bg-fern-400 text-white' : ''
                                                                             } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                                                         onClick={list.action}
                                                                     >

@@ -18,14 +18,14 @@ export default function RightNav() {
 
     const [latestMovies, setLatestMovies] = useState<Data[]>([]);
     const getLatestMovies = async () => {
-        const res: any = await MovieApi.get(`upcoming?api_key=0bae2b774ae975ea338f73141added57&language=en-US&page=1`);
+        const res: any = await MovieApi.get(`upcoming?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`);
         setLatestMovies(res?.data.results)
     };
 
 
     const [popularMovies, setPopularMovies] = useState<Data[]>([]);
     const getPopularMovies = async () => {
-        const res: any = await MovieApi.get(`popular?api_key=0bae2b774ae975ea338f73141added57&language=en-US&page=1`);
+        const res: any = await MovieApi.get(`popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`);
         setPopularMovies(res?.data.results)
     };
 

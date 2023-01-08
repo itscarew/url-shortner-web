@@ -30,19 +30,19 @@ export default function Home() {
 
   const [nowPlaying, setNowPlaying] = useState<Data[]>([]);
   const nowPlayingMovies = async () => {
-    const res: any = await MovieApi.get(`now_playing?api_key=0bae2b774ae975ea338f73141added57&language=en-US&page=1`);
+    const res: any = await MovieApi.get(`now_playing?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`);
     setNowPlaying(res?.data.results)
   };
 
   const [trendingMovies, setTrendingMovies] = useState<Data[]>([]);
   const getTrendingMovies = async () => {
-    const res: any = await MovieApi.get(`popular?api_key=0bae2b774ae975ea338f73141added57&language=en-US&page=1`);
+    const res: any = await MovieApi.get(`popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`);
     setTrendingMovies(res?.data.results)
   };
 
   const [comingSoon, setComingSoon] = useState<Data>();
   const getComingSoon = async () => {
-    const res: any = await MovieApi.get(`646389?api_key=0bae2b774ae975ea338f73141added57&language=en-US&page=1`);
+    const res: any = await MovieApi.get(`646389?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`);
     setComingSoon(res?.data)
   };
 

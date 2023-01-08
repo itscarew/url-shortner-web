@@ -39,7 +39,7 @@ export default function SearchPage() {
     const [searchedMovies, setSearchedMovies] = useState<Data[]>([]);
     const getSearchedMovies = async () => {
         const res: any = await axios.get
-            (`https://api.themoviedb.org/3/search/movie?api_key=0bae2b774ae975ea338f73141added57&language=en-US&page=${pageNo}&include_adult=true&query=${movie}`);
+            (`https://api.themoviedb.org/3/search/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=${pageNo}&include_adult=true&query=${movie}`);
         setSearchedMovies(res?.data.results)
     };
 

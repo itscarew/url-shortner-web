@@ -5,10 +5,9 @@ import React, { useState, useEffect } from "react";
 import { MovieApi } from '../api/api';
 import PageCount from '../components/PageCount';
 import DrawerComponent from '../components/Drawer';
-import { useRouter } from 'next/router';
+
 
 export default function TopRated() {
-    const router = useRouter()
 
     type Data = {
         id: number;
@@ -32,7 +31,7 @@ export default function TopRated() {
 
     const [topRatedMovies, setTopRatedMovies] = useState<Data[]>([]);
     const getTopRatedMovies = async () => {
-        const res: any = await MovieApi.get(`top_rated?api_key=0bae2b774ae975ea338f73141added57&language=en-US&page=${pageNo}`);
+        const res: any = await MovieApi.get(`top_rated?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=${pageNo}`);
         setTopRatedMovies(res?.data.results)
     };
 

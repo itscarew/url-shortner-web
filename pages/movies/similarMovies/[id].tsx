@@ -33,13 +33,13 @@ export default function NewMovies() {
 
     const [detail, setMovieDetail] = useState<Data>();
     const getMovieDetail = async () => {
-        const res: any = await MovieApi.get(`${id}?api_key=0bae2b774ae975ea338f73141added57&language=en-US&page=1`);
+        const res: any = await MovieApi.get(`${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`);
         setMovieDetail(res?.data)
     };
 
     const [similarMovies, setSimilarMovies] = useState<Data[]>([]);
     const getsimilartMovies = async () => {
-        const res = await MovieApi.get(`${id}/similar?api_key=0bae2b774ae975ea338f73141added57&language=en-US&page=${pageNo}`);
+        const res = await MovieApi.get(`${id}/similar?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=${pageNo}`);
         setSimilarMovies(res?.data.results)
     };
 
@@ -67,12 +67,6 @@ export default function NewMovies() {
                             return <Card key={movies.id} data={movies}
                                 onClick={() => {
                                     showDetails(movies.id)
-                                }}
-                                chooseSimilarMovies={() => {
-                                    router.push(`/movies/similarMovies/${movies.id}`)
-                                }}
-                                watchList={() => {
-                                    console.log("Added To WatchList")
                                 }}
                             />
                         })}
