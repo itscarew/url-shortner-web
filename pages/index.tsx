@@ -21,11 +21,23 @@ export default function Home() {
         e.preventDefault()
         createUrl()
     }
+
+    const [tooltip, setToolTip] = useState<boolean>(false)
+    const handleTooltipOpen = () => {
+        setToolTip(true);
+    };
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText(`http://localhost:3000/${shortenUrl}`);
+        setInterval(() => {
+            setToolTip(false)
+        }, 2000);
+    };
+
     return (
         <>
             <div className="font-body font-thin w-full bg-sea-green-400 min-h-screen text-white ">
                 <div className=" container mx-auto md:px-64 px-6 flex flex-col items-center justify-between  w-full bg-sea-green-400 min-h-screen ">
-
                     <div className="w-full mt-32 " >
                         <h1 className="text-6xl text-center  mb-6 ">Short URL</h1>
                         <h1 className="text-4xl text-center mb-4">Paste the URL to be shortened</h1>
@@ -44,9 +56,16 @@ export default function Home() {
                             >Shorten Url</button>
                         </form>
                         {shortenUrl &&
-                            <div className="text-center flex items-center justify-center text-xl font-medium my-6">
-                                <p className="mr-2" >This your Shortened URL :  <a href={originalUrl} target="/_blank" > {`http://localhost:3000/${shortenUrl}`} </a> </p> <span className="cursor-pointer" > <AiOutlineCopy /> </span>   </div>}
-
+                            <div className="text-center bg-white text-sea-green-400 py-3 px-4 rounded-full flex items-center justify-center text-xl font-medium my-6">
+                                <p className="mr-2" >This is your Shortened URL :  <a href={originalUrl} target="/_blank" > {`http://localhost:3000/${shortenUrl}`} </a> </p>
+                                <span className="cursor-pointer relative" onClick={() => {
+                                    handleTooltipOpen()
+                                    handleCopy()
+                                }}  >
+                                    <span className={`absolute bg-gray-500 text-sm text-white rounded-full w-20 h-6 -top-3 ${!tooltip && "hidden"} `} >Copied !</span>
+                                    <AiOutlineCopy size={25} />
+                                </span>
+                            </div>}
                         <p className="text-center my-6" > This url shortner helps you to shorten a URL or reduce a link</p>
                     </div>
 
