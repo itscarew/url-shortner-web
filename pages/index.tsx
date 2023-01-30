@@ -13,7 +13,7 @@ export default function Home() {
     const [originalUrl, setOriginalUrl] = useState("");
     const createUrl = async () => {
         const res: any = await UrlApi.post(`shortenUrl`, { originalUrl: url });
-        setShortenUrl(res?.data?.data?.shortnedUrl)
+        setShortenUrl(res?.data?.data?.shortUrl?.shortUrl)
         setOriginalUrl(res?.data?.data?.originalUrl)
     };
 
