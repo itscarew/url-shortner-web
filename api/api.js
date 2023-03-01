@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const UrlApi = axios.create({
-  baseURL: "https://olas-url-shortener.onrender.com/shortenUrl",
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/shortenUrl`,
   headers: {
     "content-type": "application/json",
   },
