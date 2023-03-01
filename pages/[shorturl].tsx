@@ -5,7 +5,7 @@ import { NextRouter } from "next/router";
 export default function Home() {
     return (
         <>
-            <div>Home</div>
+            <div>Shorten  Url</div>
         </>
     )
 }
