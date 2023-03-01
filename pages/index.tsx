@@ -62,7 +62,7 @@ export default function Home() {
                         </form>
                         {shortenUrl &&
                             <div className="text-center bg-white text-sea-green-400 py-3 px-4 rounded-full flex items-center justify-center text-xl font-medium my-6">
-                                <p className="mr-2" >This is your Shortened URL :  <a href={originalUrl} target="/_blank" > {`${process.env.NEXT_PUBLIC_WEB_URL}/${shortenUrl}`} </a> </p>
+                                <p className="mr-2" >This is your Shortened URL :  <a href={originalUrl} > {`${process.env.NEXT_PUBLIC_WEB_URL}/${shortenUrl}`} </a> </p>
                                 <span className="cursor-pointer relative" onClick={() => {
                                     handleTooltipOpen()
                                     handleCopy()
