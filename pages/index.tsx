@@ -22,12 +22,10 @@ export default function Home() {
         e.preventDefault()
         createUrl()
     }
-
     const [tooltip, setToolTip] = useState<boolean>(false)
     const handleTooltipOpen = () => {
         setToolTip(true);
     };
-
     const handleCopy = () => {
         navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_WEB_URL}/${shortenUrl}`);
         setInterval(() => {
