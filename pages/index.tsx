@@ -12,7 +12,7 @@ export default function Home() {
     const [shortenUrl, setShortenUrl] = useState("");
     const [originalUrl, setOriginalUrl] = useState("");
     const createUrl = async () => {
-        const res: any = await UrlApi.post(`shortenUrl`, { originalUrl: url });
+        const res: any = await UrlApi.post(`/`, { originalUrl: url });
         setShortenUrl(res?.data?.data?.shortUrl?.shortUrl)
         setOriginalUrl(res?.data?.data?.originalUrl)
     };
@@ -28,7 +28,7 @@ export default function Home() {
     };
 
     const handleCopy = () => {
-        navigator.clipboard.writeText(`http://localhost:3000/${shortenUrl}`);
+        navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_WEB_URL}/${shortenUrl}`);
         setInterval(() => {
             setToolTip(false)
         }, 2000);
@@ -57,7 +57,7 @@ export default function Home() {
                         </form>
                         {shortenUrl &&
                             <div className="text-center bg-white text-sea-green-400 py-3 px-4 rounded-full flex items-center justify-center text-xl font-medium my-6">
-                                <p className="mr-2" >This is your Shortened URL :  <a href={originalUrl} target="/_blank" > {`http://localhost:3000/${shortenUrl}`} </a> </p>
+                                <p className="mr-2" >This is your Shortened URL :  <a href={originalUrl} target="/_blank" > {`${process.env.NEXT_PUBLIC_WEB_URL}/${shortenUrl}`} </a> </p>
                                 <span className="cursor-pointer relative" onClick={() => {
                                     handleTooltipOpen()
                                     handleCopy()

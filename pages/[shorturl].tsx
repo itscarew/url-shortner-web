@@ -12,7 +12,7 @@ export default function Home() {
 
 export async function getServerSideProps(context: NextRouter) {
     const { shorturl } = context.query
-    const res = await UrlApi.get(`shortenUrl/${shorturl}`);
+    const res = await UrlApi.get(`/${shorturl}`);
     const data = res.data?.data
     if (data) {
         return {
